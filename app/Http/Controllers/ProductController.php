@@ -84,7 +84,7 @@ class ProductController extends Controller
             'status' => $request->status,
             'category_id' => $request->category_id,
         ]);
-        Color_Product::where('product_id', $product->id)->delete();
+//        Color_Product::where('product_id', $product->id)->delete();
 //        $colors = $request->input('colors');
 //        $colorToAdd = [];
 //        foreach ($colors as $col) {
@@ -94,7 +94,11 @@ class ProductController extends Controller
 //                 Color_Product::where('product_id', $col)->delete();
 //            }
 //        }
-        $prod->colors()->attach($request->input('colors'));
+        // way 1
+        // Color_Product::where('product_id', $product->id)->delete();
+        // $prod->colors()->attach($request->input('colors'));
+        // WAY 2 - NEXT LINE ONLY
+        $prod->colors()->sync($request->input('colors'));
         if (!$request->status) {
             toastr()->success("$request->name Product Disabled Successfully.");
 

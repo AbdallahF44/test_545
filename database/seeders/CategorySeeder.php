@@ -15,27 +15,6 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-//        Category::create([
-//            'name' => "phones",
-//        ]);
-//        Category::create([
-//            'name' => "laptops",
-//        ]);
-        Color::create([
-            'name'=>'blue',
-            'hex'=>'#0000ff'
-        ]);
-        Color::create([
-            'name'=>'red',
-            'hex'=>'#ff0000'
-        ]);
-        Color::create([
-            'name'=>'green',
-            'hex'=>'#00ff00'
-        ]);
-        Color::create([
-            'name'=>'yellow',
-            'hex'=>'#ffff00'
-        ]);
+
     }
 }

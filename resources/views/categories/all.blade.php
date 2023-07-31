@@ -38,7 +38,7 @@
     @if(count($categories)!=0)
         <div class="table-responsive">
             <!--begin::Table-->
-            <table class="table align-middle gs-0 gy-5">
+            <table class="table align-middle gs-0 gy-5" download>
                 <!--begin::Table head-->
                 <thead>
                 <tr>
