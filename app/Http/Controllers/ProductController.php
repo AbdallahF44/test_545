@@ -180,7 +180,7 @@ class ProductController extends Controller
 
 
         toastr()->success("Image Deleted Successfully.");
-        return redirect()->route('products.show', $product);
+        return redirect()->back();
 
     }
 }
