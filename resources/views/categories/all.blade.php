@@ -44,6 +44,7 @@
                 <tr>
                     <th class="p-0 w-20px">#</th>
                     <th class="p-0 w-50px">Category Name</th>
+                    <th class="p-0 w-50px">Category Image</th>
                     <th class="p-0 w-70px">Actions</th>
                     {{--                    <th class="p-0 w-50px">Delete</th>--}}
                 </tr>
@@ -61,6 +62,12 @@
                         <td style="text-align: center">
                             <div style="text-align: start" class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
                                 {{$category->name}}
+                            </div>
+                        </td>
+                        <td style="text-align: center">
+                            <div style="text-align: start" class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+{{--                                {{$category->getMedia()}}--}}
+                                <img src="{{$category->getFirstMediaUrl('images')}}" style="width: 100px;height: 100px;border-radius: 50%"/>
                             </div>
                         </td>
                         <td style="text-align: center">

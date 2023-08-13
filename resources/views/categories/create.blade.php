@@ -138,7 +138,7 @@
         </div>
         <!--end::Modal header-->
         <!--begin::Form-->
-        <form class="form" action="{{route('categories.store')}}" method="post">
+        <form class="form" action="{{route('categories.store')}}" method="post" enctype="multipart/form-data">
             @csrf
             @method('POST')
             <!--begin::Modal body-->
@@ -153,6 +153,19 @@
                            placeholder="Your Category Name" name="name" value="{{old('name')}}"/>
                     <!--end::Input-->
                     @error('name')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <!--end::Input group-->
+                <div class="mb-5 fv-row">
+                    <!--begin::Label-->
+                    <label class="required fs-5 fw-bold mb-2">Category Image</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input type="file" required class="form-control form-control-solid" accept="image/*"
+                           placeholder="Your Category Image" name="image" value="{{old('image')}}"/>
+                    <!--end::Input-->
+                    @error('image')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>

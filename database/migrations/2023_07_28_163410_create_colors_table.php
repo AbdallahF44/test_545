@@ -18,19 +18,34 @@ return new class extends Migration {
             $table->timestamps();
         });
         Color::create([
-            'name' => 'blue',
-            'hex' => '#0000ff'
+            'name' => [
+                'en' => 'blue',
+                'ar' => 'أزرق'
+            ], 'hex' => '#0000ff'
         ]);
+//        Color::create([
+//            'name' => 'blue',
+//            'hex' => '#0000ff'
+//        ]);
         Color::create([
-            'name' => 'red',
+            'name' => [
+                'en' => 'red',
+                'ar' => 'أحمر'
+            ],
             'hex' => '#ff0000'
         ]);
         Color::create([
-            'name' => 'green',
+            'name' => [
+                'en' => 'green',
+                'ar' => 'أخضر'
+            ],
             'hex' => '#00ff00'
         ]);
         Color::create([
-            'name' => 'yellow',
+            'name' => [
+                'en' => 'yellow',
+                'ar' => 'أصفر'
+            ],
             'hex' => '#ffff00'
         ]);
     }

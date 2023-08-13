@@ -46,6 +46,7 @@
                     <th class="p-0 w-20px">#</th>
                     <th class="p-0 w-50px">Product Name</th>
                     <th class="p-0 w-70px">Product Price</th>
+                    <th class="p-0 w-70px">Product Images</th>
                     {{--                <th class="p-0 w-70px">Category Name</th>--}}
                     <th class="p-0 w-50px">Show</th>
                     {{--                    <th class="p-0 w-50px">Delete</th>--}}
@@ -72,6 +73,11 @@
                                  class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
                                 <sup>$</sup>{{$product->price}}
                             </div>
+                        </td>
+                        <td style="display: flex; gap: 5px">
+                            @foreach ($product->getMedia('product_images') as $image)
+                                <img src="{{ $image->getUrl() }}" alt="{{ $image->getUrl() }}" style="width: 100px;height: 100px;border-radius: 10px;display: inline-block" class="w-20 h-20 shadow">
+                            @endforeach
                         </td>
                         {{--                    <td style="text-align: center">--}}
                         {{--                        <div style="text-align: start"--}}

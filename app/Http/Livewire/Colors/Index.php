@@ -12,6 +12,7 @@ class Index extends Component
     public $hex;
     public $edit_color_name;
     public $color_id;
+    public $lang='en';
 
     protected $rules = [
         'name' => 'required|min:2',

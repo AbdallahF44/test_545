@@ -122,6 +122,44 @@
                         </td>
                     </tr>
                     <tr>
+                        <th>
+                            <div class="text-dark fw-bolder mb-1 fs-6">
+                                Product Images:
+                            </div>
+                        </th>
+                        <td style="text-align: center">
+                            <div style="display: flex;gap: 20px;align-items: center">
+                                <div style="text-align: start"
+                                     class="text-dark fw-bolder mb-1 fs-6">
+                                    <div style="display: flex; gap: 5px">
+                                        @foreach ($product->getMedia('product_images') as $image)
+                                            <div>
+                                                <img src="{{ $image->getUrl() }}" alt="{{ $image->getUrl() }}"
+                                                     style="width: 100px;height: 100px;border-radius: 10px;display: inline-block"
+                                                     class="w-20 h-20 shadow">
+                                                <div style="display: flex;gap: 10px">
+                                                    <a href="{{ route('products.editImage', ['product' => $product->id, 'imageId' => $image->id]) }}"
+                                                       class="btn btn-sm btn-primary"><i class="bi bi-pencil-square"
+                                                                                  style="padding: 0"></i></a>
+                                                    <div style="text-align: start" class="text-dark fw-bolder mb-1 fs-6">
+                                                        <form method="post" action="{{ route('products.deleteImage', ['product' => $product->id, 'imageId' => $image->id]) }}"
+                                                              style="display: inline-block">
+                                                            @csrf
+                                                            <button class="btn btn-sm btn-danger" type="submit" role="button"><i
+                                                                    style="padding: 0" class="bi bi-trash-fill"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+                    <tr>
                         @if(count($product->colors)!=0)
                             <th>
                                 <div class="text-dark fw-bolder text-hover-primary mb-1 fs-6">

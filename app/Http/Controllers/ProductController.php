@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Color;
 use App\Models\Color_Product;
 use App\Models\Product;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -44,6 +45,12 @@ class ProductController extends Controller
         ]);
 
         $product->colors()->attach($request->input('colors'));
+        $product->addMultipleMediaFromRequest(['image'])
+            ->each(function ($fileAdder) {
+                $fileAdder->toMediaCollection('product_images');
+            });
+        $product->save();
+
 
         toastr()->success("$request->name Product Added Successfully.");
 
@@ -99,6 +106,19 @@ class ProductController extends Controller
         // $prod->colors()->attach($request->input('colors'));
         // WAY 2 - NEXT LINE ONLY
         $prod->colors()->sync($request->input('colors'));
+
+//        $existingMedia = $prod->getMedia('product_images');
+//        // Delete the existing media
+//        foreach ($existingMedia as $media) {
+//            $media->delete();
+//        }
+        $prod->clearMediaCollection('product_images');
+        $prod->addMultipleMediaFromRequest(['image'])
+            ->each(function ($fileAdder) {
+                $fileAdder->toMediaCollection('product_images');
+            });
+//        $prod->replaceMedia($request->file('image'))->toMediaCollection('product_images');
+        $prod->save();
         if (!$request->status) {
             toastr()->success("$request->name Product Disabled Successfully.");
 
@@ -120,5 +140,47 @@ class ProductController extends Controller
         toastr()->success("$product->name Category Deleted Successfully.");
 
         return redirect()->route('products.index');
+    }
+
+    public function editImage(Product $product, $imageId)
+    {
+        $image = $product->getMedia('product_images')->find($imageId);
+        return view('products.edit_image', compact('product', 'image'));
+    }
+
+    public function updateImage(Request $request, Product $product, $imageId)
+    {
+        $image = $product->getMedia('product_images')->find($imageId);
+
+        if (!$image) {
+            toastr()->error("Image not found.");
+            return redirect()->route('products.show', $product);
+        }
+
+        if ($request->hasFile('image')) {
+            $image->delete(); // Delete the existing image
+
+            $newImage = $product->addMedia($request->file('image'))->toMediaCollection('product_images');
+            $newImage->save();
+
+            toastr()->success("Image Updated Successfully.");
+            return redirect()->route('products.show', $product);
+        }
+
+        toastr()->error("Image not updated. Please provide a new image.");
+        return redirect()->route('products.editImage', ['product' => $product->id, 'imageId' => $imageId]);
+    }
+
+    public function deleteImage(Product $product, $imageId)
+    {
+        $image = $product->getMedia('product_images')->find($imageId);
+
+//        $image->delete(); // Delete the existing image
+        $product->deleteMedia($imageId);
+
+
+        toastr()->success("Image Deleted Successfully.");
+        return redirect()->route('products.show', $product);
+
     }
 }

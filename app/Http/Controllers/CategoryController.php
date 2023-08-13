@@ -6,7 +6,6 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
 use App\Models\Product;
-use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
 
 
@@ -35,10 +34,17 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        Category::create([
+//        dd($request);
+//        $category = new Category();
+//        $category->name = $request->name;
+//        $category->status = true;
+        $category = Category::create([
             'name' => $request->name,
             'status' => true,
         ]);
+//        $url = 'cpanel\assets\media\avatars\150-1.jpg';
+        $category->addMediaFromRequest('image')->toMediaCollection('images');
+        $category->save();
         toastr()->success("$request->name Category Added Successfully.");
         return redirect()->route('categories.index');
     }
@@ -48,6 +54,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+        dd($category->getFirstMedia('images'));
         if (!$category->status)
             return redirect()->route('categories.index');
         return view('categories.show', compact('category'));

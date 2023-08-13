@@ -1,4 +1,19 @@
 <main>
+
+    {{$lang}}
+    <div class="d-flex flex-column mb-10 fv-row">
+        <!--begin::Label-->
+        <label class="required fs-5 fw-bold mb-2">Languages</label>
+        <!--end::Label-->
+        <!--begin::Select-->
+        <select wire:model="lang" data-hide-search="true" required
+                data-placeholder="Select a Language..." class="form-select form-select-solid">
+            <option value="">Select a Language...</option>
+            <option value="en">En</option>
+            <option value="ar">Ar</option>
+        </select>
+        <!--end::Select-->
+    </div>
     @if(count($colors)!=0)
         <div class="table-responsive">
             <!--begin::Table-->
@@ -17,6 +32,7 @@
                 <!--begin::Table body-->
                 <tbody>
                 @foreach($colors as $color)
+{{--                    @dd($color->hex)--}}
                     <tr>
                         <th style="text-align: center">
                             <div class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
@@ -26,7 +42,7 @@
                         <td style="text-align: center">
                             <div style="text-align: start"
                                  class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
-                                {{$color->name}}
+                                {{$color->getTranslations('name',['en','ar'])[$lang]}}
                             </div>
                         </td>
                         <td style="text-align: center">

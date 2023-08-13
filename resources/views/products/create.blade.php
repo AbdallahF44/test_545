@@ -44,7 +44,8 @@
         </div>
         <!--end::Modal header-->
         <!--begin::Form-->
-        <form class="form" action="{{route('products.update',$product->id)}}" method="post">
+        <form class="form" action="{{route('products.update',$product->id)}}" method="post"
+              enctype="multipart/form-data">
             @csrf
             @method('Put')
             <!--begin::Modal body-->
@@ -182,6 +183,43 @@
                     @enderror
                 </div>
                 <!--end::Input group-->
+                <!--end::Input group-->
+                <div class="mb-5 fv-row">
+                    <!--begin::Label-->
+                    <label class="required fs-5 fw-bold mb-2">Product Image</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <div style="display: flex; gap: 5px">
+                        @foreach ($product->getMedia('product_images') as $image)
+                            <div>
+                                <img src="{{ $image->getUrl() }}" alt="{{ $image->getUrl() }}"
+                                     style="width: 100px;height: 100px;border-radius: 10px;display: inline-block"
+                                     class="w-20 h-20 shadow">
+                                <div style="display: flex;gap: 10px">
+                                <a href="{{ route('products.editImage', ['product' => $product->id, 'imageId' => $image->id]) }}" style="padding: 0"
+                                   class="btn btn-sm btn-primary"><i class="bi bi-pencil-square"></i></a>
+                                    <div style="text-align: start" class="text-dark fw-bolder mb-1 fs-6">
+                                        <form method="post" action="{{ route('products.deleteImage', ['product' => $product->id, 'imageId' => $image->id]) }}"
+                                              style="display: inline-block">
+                                            @csrf
+                                            <button class="btn btn-sm btn-danger" type="submit" role="button"><i
+                                                    style="padding: 0" class="bi bi-trash-fill"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <input type="file" multiple class="form-control form-control-solid" accept="image/*"
+                           placeholder="Your Product Images" name="image[]" value="{{old('image')}}"/>
+                    <!--end::Input-->
+                    @error('image')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <!--end::Input group-->
             </div>
             <!--end::Modal body-->
             <!--begin::Modal footer-->
@@ -210,7 +248,7 @@
         </div>
         <!--end::Modal header-->
         <!--begin::Form-->
-        <form class="form" action="{{route('products.store')}}" method="post">
+        <form class="form" action="{{route('products.store')}}" method="post" enctype="multipart/form-data">
             @csrf
             @method('POST')
             <!--begin::Modal body-->
@@ -290,6 +328,20 @@
                     </select>
                     <!--end::Select-->
                     @error('category_id')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <!--end::Input group-->
+                <!--end::Input group-->
+                <div class="mb-5 fv-row">
+                    <!--begin::Label-->
+                    <label class="required fs-5 fw-bold mb-2">Product Image</label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input type="file" multiple required class="form-control form-control-solid" accept="image/*"
+                           placeholder="Your Product Images" name="image[]" value="{{old('image')}}"/>
+                    <!--end::Input-->
+                    @error('image')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
