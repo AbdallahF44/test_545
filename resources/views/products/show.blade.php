@@ -135,9 +135,9 @@
                                         @foreach ($product->getMedia('product_images') as $image)
                                             <div>
                                                 <img src="{{ $image->getUrl() }}" alt="{{ $image->getUrl() }}"
-                                                     style="width: 100px;height: 100px;border-radius: 10px;display: inline-block"
+                                                     style="margin-bottom: 5px;width: 100px;height: 100px;border-radius: 10px;display: inline-block"
                                                      class="w-20 h-20 shadow">
-                                                <div style="display: flex;gap: 10px">
+                                                <div style="display: flex;gap: 5px">
                                                     <a href="{{ route('products.editImage', ['product' => $product->id, 'imageId' => $image->id]) }}"
                                                        class="btn btn-sm btn-primary"><i class="bi bi-pencil-square"
                                                                                   style="padding: 0"></i></a>

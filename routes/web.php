@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Route::get('/products/{product}/images/{imageId}/edit', [\App\Http\Controllers\ProductController::class,'editImage'])->name('products.editImage');
 Route::put('/products/{product}/images/{imageId}/edit', [\App\Http\Controllers\ProductController::class,'updateImage'])->name('products.updateImage');
-Route::post('/products/{product}/images/{imageId}/delete', [\App\Http\Controllers\ProductController::class,'deleteImage'])->name('products.deleteImage');
+Route::get('/products/{product}/images/{imageId}/delete', [\App\Http\Controllers\ProductController::class,'deleteImage'])->name('products.deleteImage');
 
 Route::resource('categories',\App\Http\Controllers\CategoryController::class)->missing(function (){return redirect()->route('categories.index');});
 Route::resource('products',\App\Http\Controllers\ProductController::class);

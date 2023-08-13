@@ -193,20 +193,16 @@
                         @foreach ($product->getMedia('product_images') as $image)
                             <div>
                                 <img src="{{ $image->getUrl() }}" alt="{{ $image->getUrl() }}"
-                                     style="width: 100px;height: 100px;border-radius: 10px;display: inline-block"
+                                     style="width: 100px;height: 100px;border-radius: 10px;display: inline-block;margin-bottom: 5px"
                                      class="w-20 h-20 shadow">
-                                <div style="display: flex;gap: 10px">
-                                <a href="{{ route('products.editImage', ['product' => $product->id, 'imageId' => $image->id]) }}" style="padding: 0"
-                                   class="btn btn-sm btn-primary"><i class="bi bi-pencil-square"></i></a>
-                                    <div style="text-align: start" class="text-dark fw-bolder mb-1 fs-6">
-                                        <form method="post" action="{{ route('products.deleteImage', ['product' => $product->id, 'imageId' => $image->id]) }}"
-                                              style="display: inline-block">
-                                            @csrf
-                                            <button class="btn btn-sm btn-danger" type="submit" role="button"><i
-                                                    style="padding: 0" class="bi bi-trash-fill"></i>
-                                            </button>
-                                        </form>
-                                    </div>
+                                <div style="display: flex;gap: 5px">
+                                    <a href="{{ route('products.editImage', ['product' => $product->id, 'imageId' => $image->id]) }}"
+                                       class="btn btn-sm btn-primary"><i style="padding: 0"
+                                                                         class="bi bi-pencil-square"></i></a>
+                                    <a href="{{ route('products.deleteImage', ['product' => $product->id, 'imageId' => $image->id]) }}"
+                                       class="btn btn-sm btn-danger"><i style="padding: 0"
+                                                                         class="bi bi-trash-fill"></i></a>
+
                                 </div>
                             </div>
                         @endforeach
