@@ -13,23 +13,26 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/', function () {
     return view('dashboard.welcome');
 })->name('home');
+Route::get('/products/{product}/images/{imageId}/edit', [\App\Http\Controllers\ProductController::class, 'editImage'])->name('products.editImage');
+Route::put('/products/{product}/images/{imageId}/edit', [\App\Http\Controllers\ProductController::class, 'updateImage'])->name('products.updateImage');
+Route::get('/products/{product}/images/{imageId}/delete', [\App\Http\Controllers\ProductController::class, 'deleteImage'])->name('products.deleteImage');
+Route::get('/productsPDF/{product}', [\App\Http\Controllers\ProductController::class, 'getPDF'])->name('products.getPDF');
 
-Route::get('/products/{product}/images/{imageId}/edit', [\App\Http\Controllers\ProductController::class,'editImage'])->name('products.editImage');
-Route::put('/products/{product}/images/{imageId}/edit', [\App\Http\Controllers\ProductController::class,'updateImage'])->name('products.updateImage');
-Route::get('/products/{product}/images/{imageId}/delete', [\App\Http\Controllers\ProductController::class,'deleteImage'])->name('products.deleteImage');
-
-Route::resource('categories',\App\Http\Controllers\CategoryController::class)->missing(function (){return redirect()->route('categories.index');});
-Route::resource('products',\App\Http\Controllers\ProductController::class);
-Route::resource('users',\App\Http\Controllers\UserController::class);
-Route::resource('categories_status',\App\Http\Controllers\CategoryStatusController::class);
-Route::resource('products_status',\App\Http\Controllers\ProductStatusController::class);
-Route::resource('users_status',\App\Http\Controllers\UserStatusController::class);
-Route::get('posts',\App\Http\Livewire\Posts::class)->name('posts');
-Route::get('comments',\App\Http\Livewire\Comments\Index::class)->name('comments');
-Route::get('colors',\App\Http\Livewire\Colors\Index::class)->name('colors');
+Route::resource('categories', \App\Http\Controllers\CategoryController::class)->missing(function () {
+    return redirect()->route('categories.index');
+});
+Route::resource('products', \App\Http\Controllers\ProductController::class);
+Route::resource('users', \App\Http\Controllers\UserController::class);
+Route::resource('categories_status', \App\Http\Controllers\CategoryStatusController::class);
+Route::resource('products_status', \App\Http\Controllers\ProductStatusController::class);
+Route::resource('users_status', \App\Http\Controllers\UserStatusController::class);
+Route::get('posts', \App\Http\Livewire\Posts::class)->name('posts');
+Route::get('comments', \App\Http\Livewire\Comments\Index::class)->name('comments');
+Route::get('colors', \App\Http\Livewire\Colors\Index::class)->name('colors');
 
 
 Route::get('/dashboard', function () {
@@ -42,4 +45,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
+
+
+Route::fallback(function () {
+    // return view('welcome');
+    return redirect()->back();
+});

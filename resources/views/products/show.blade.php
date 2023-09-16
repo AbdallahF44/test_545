@@ -11,6 +11,8 @@
     <a href="#" class="btn btn-sm btn-danger" data-bs-toggle="modal"
        data-bs-target="#kt_modal_delete" id="kt_toolbar_primary_button"><i
             style="padding: 0" class="bi bi-trash-fill"></i></a>
+    <a href="{{route('products.getPDF',$product)}}" class="btn btn-sm ms-5 btn-primary"
+       id="kt_toolbar_primary_button">Get PDF</a>
 @endsection
 
 @push('css')

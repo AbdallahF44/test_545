@@ -149,7 +149,7 @@
                     <label class="required fs-5 fw-bold mb-2">Category Name</label>
                     <!--end::Label-->
                     <!--begin::Input-->
-                    <input type="text" required class="form-control form-control-solid"
+                    <input type="text"  class="form-control form-control-solid"
                            placeholder="Your Category Name" name="name" value="{{old('name')}}"/>
                     <!--end::Input-->
                     @error('name')

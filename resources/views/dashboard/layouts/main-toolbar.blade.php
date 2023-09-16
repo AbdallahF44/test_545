@@ -16,8 +16,8 @@
         </div>
         <!--end::Page title-->
         <!--begin::Actions-->
-{{--        <div class="d-flex align-items-center py-1">--}}
-{{--            <!--begin::Wrapper-->--}}
+        <div class="d-flex align-items-center py-1">
+            <!--begin::Wrapper-->
 {{--            <div class="me-4">--}}
 {{--                <!--begin::Menu-->--}}
 {{--                <a href="#" class="btn btn-sm btn-flex btn-light btn-active-primary fw-bolder"--}}
@@ -124,11 +124,11 @@
 {{--                <!--end::Menu 1-->--}}
 {{--                <!--end::Menu-->--}}
 {{--            </div>--}}
-{{--            <!--end::Wrapper-->--}}
-{{--            <!--begin::Button-->--}}
-{{--            @yield('btn_toolbar')--}}
-{{--            <!--end::Button-->--}}
-{{--        </div>--}}
+            <!--end::Wrapper-->
+            <!--begin::Button-->
+            @yield('btn_toolbar')
+            <!--end::Button-->
+        </div>
         <!--end::Actions-->
     </div>
     <!--end::Container-->

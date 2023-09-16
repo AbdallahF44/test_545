@@ -1,5 +1,5 @@
-<main>
-
+<main wire:poll>
+    <livewire:counter />
     {{$lang}}
     <div class="d-flex flex-column mb-10 fv-row">
         <!--begin::Label-->

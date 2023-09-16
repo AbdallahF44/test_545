@@ -9,6 +9,8 @@ use App\Models\Color;
 use App\Models\Color_Product;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use \Mpdf\Mpdf as PDF;
 
 class ProductController extends Controller
 {
@@ -181,6 +183,36 @@ class ProductController extends Controller
 
         toastr()->success("Image Deleted Successfully.");
         return redirect()->back();
+
+    }
+    public function getPDF(Product $product)
+    {
+
+        $documentFileName = "data " . $product->name . ".pdf";
+
+        $document = new PDF([
+            'mode'          => 'utf-8',
+            'format'        => 'A4',
+            'margin_header' => '3',
+            'margin_top'    => '20',
+            'margin_bottom' => '20',
+            'margin_footer' => '2',
+        ]);
+
+        // Set some header informations for output
+        $header = [
+            'Content-Type'        => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="' . $documentFileName . '"'
+        ];
+
+
+        // Use Blade if you want
+        $document->WriteHTML(view('components.pdf', [
+            'user' => $product
+        ])->render());
+
+        Storage::disk('public')->put($documentFileName, $document->Output($documentFileName, "S"));
+        return Storage::disk('public')->download($documentFileName, 'Request', $header); //
 
     }
 }
