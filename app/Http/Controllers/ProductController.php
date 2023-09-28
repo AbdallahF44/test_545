@@ -38,7 +38,7 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-//        dd($request);
+        //        dd($request);
         $product = Product::create([
             'name' => $request->name,
             'price' => $request->price,
@@ -93,33 +93,33 @@ class ProductController extends Controller
             'status' => $request->status,
             'category_id' => $request->category_id,
         ]);
-//        Color_Product::where('product_id', $product->id)->delete();
-//        $colors = $request->input('colors');
-//        $colorToAdd = [];
-//        foreach ($colors as $col) {
-//            if (!in_array($col, $prod->colors->pluck('id')->all()))
-//                $colorToAdd[] = $col;
-//            else {
-//                 Color_Product::where('product_id', $col)->delete();
-//            }
-//        }
+        //        Color_Product::where('product_id', $product->id)->delete();
+        //        $colors = $request->input('colors');
+        //        $colorToAdd = [];
+        //        foreach ($colors as $col) {
+        //            if (!in_array($col, $prod->colors->pluck('id')->all()))
+        //                $colorToAdd[] = $col;
+        //            else {
+        //                 Color_Product::where('product_id', $col)->delete();
+        //            }
+        //        }
         // way 1
         // Color_Product::where('product_id', $product->id)->delete();
         // $prod->colors()->attach($request->input('colors'));
         // WAY 2 - NEXT LINE ONLY
         $prod->colors()->sync($request->input('colors'));
 
-//        $existingMedia = $prod->getMedia('product_images');
-//        // Delete the existing media
-//        foreach ($existingMedia as $media) {
-//            $media->delete();
-//        }
+        //        $existingMedia = $prod->getMedia('product_images');
+        //        // Delete the existing media
+        //        foreach ($existingMedia as $media) {
+        //            $media->delete();
+        //        }
         $prod->clearMediaCollection('product_images');
         $prod->addMultipleMediaFromRequest(['image'])
             ->each(function ($fileAdder) {
                 $fileAdder->toMediaCollection('product_images');
             });
-//        $prod->replaceMedia($request->file('image'))->toMediaCollection('product_images');
+        //        $prod->replaceMedia($request->file('image'))->toMediaCollection('product_images');
         $prod->save();
         if (!$request->status) {
             toastr()->success("$request->name Product Disabled Successfully.");
@@ -177,13 +177,12 @@ class ProductController extends Controller
     {
         $image = $product->getMedia('product_images')->find($imageId);
 
-//        $image->delete(); // Delete the existing image
+        //        $image->delete(); // Delete the existing image
         $product->deleteMedia($imageId);
 
 
         toastr()->success("Image Deleted Successfully.");
         return redirect()->back();
-
     }
     public function getPDF(Product $product)
     {

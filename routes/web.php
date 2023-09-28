@@ -1,7 +1,13 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserStatusController;
+use App\Http\Controllers\ProductStatusController;
+use App\Http\Controllers\CategoryStatusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,19 +23,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('dashboard.welcome');
 })->name('home');
-Route::get('/products/{product}/images/{imageId}/edit', [\App\Http\Controllers\ProductController::class, 'editImage'])->name('products.editImage');
-Route::put('/products/{product}/images/{imageId}/edit', [\App\Http\Controllers\ProductController::class, 'updateImage'])->name('products.updateImage');
-Route::get('/products/{product}/images/{imageId}/delete', [\App\Http\Controllers\ProductController::class, 'deleteImage'])->name('products.deleteImage');
-Route::get('/productsPDF/{product}', [\App\Http\Controllers\ProductController::class, 'getPDF'])->name('products.getPDF');
+Route::get('/products/{product}/images/{imageId}/edit', [ProductController::class, 'editImage'])->name('products.editImage');
+Route::put('/products/{product}/images/{imageId}/edit', [ProductController::class, 'updateImage'])->name('products.updateImage');
+Route::get('/products/{product}/images/{imageId}/delete', [ProductController::class, 'deleteImage'])->name('products.deleteImage');
+Route::get('/productsPDF/{product}', [ProductController::class, 'getPDF'])->name('products.getPDF');
 
-Route::resource('categories', \App\Http\Controllers\CategoryController::class)->missing(function () {
+Route::resource('categories', CategoryController::class)->missing(function () {
     return redirect()->route('categories.index');
 });
-Route::resource('products', \App\Http\Controllers\ProductController::class);
-Route::resource('users', \App\Http\Controllers\UserController::class);
-Route::resource('categories_status', \App\Http\Controllers\CategoryStatusController::class);
-Route::resource('products_status', \App\Http\Controllers\ProductStatusController::class);
-Route::resource('users_status', \App\Http\Controllers\UserStatusController::class);
+Route::resource('products', ProductController::class);
+Route::resource('users', UserController::class);
+Route::resource('categories_status', CategoryStatusController::class);
+Route::resource('products_status', ProductStatusController::class);
+Route::resource('users_status', UserStatusController::class);
 Route::get('posts', \App\Http\Livewire\Posts::class)->name('posts');
 Route::get('comments', \App\Http\Livewire\Comments\Index::class)->name('comments');
 Route::get('colors', \App\Http\Livewire\Colors\Index::class)->name('colors');
